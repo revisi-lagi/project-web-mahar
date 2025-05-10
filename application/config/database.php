@@ -74,10 +74,10 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
+	'dsn' => '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'root',
+	'password' => 'dhikamysqlserver',
 	'database' => 'project-web-mahar',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
