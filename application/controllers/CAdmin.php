@@ -173,7 +173,6 @@ class CAdmin extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('foto')) {
-                // Hapus foto lama jika ada
                 $old_foto = $this->MAdmin->get_by_id('paket', $id)->foto;
                 if ($old_foto && file_exists('./uploads/paket/' . $old_foto)) {
                     unlink('./uploads/paket/' . $old_foto);
@@ -191,7 +190,6 @@ class CAdmin extends CI_Controller
 
     public function hapus_paket($id)
     {
-        // Hapus foto jika ada
         $paket = $this->MAdmin->get_by_id('paket', $id);
         if ($paket->foto && file_exists('./uploads/paket/' . $paket->foto)) {
             unlink('./uploads/paket/' . $paket->foto);
@@ -200,13 +198,6 @@ class CAdmin extends CI_Controller
         $this->MAdmin->hapus('paket', $id);
         $this->session->set_flashdata('success', 'Paket berhasil dihapus');
         redirect('admin/paket');
-    }
-
-    // Fungsi serupa untuk snack, buah_puding, dan minuman
-    public function snack()
-    {
-        $data['snack'] = $this->MAdmin->get_all('snack');
-        $this->load->view('admin/produk/snack', $data);
     }
 
     public function tambah_snack()
@@ -221,7 +212,16 @@ class CAdmin extends CI_Controller
         redirect('admin/snack');
     }
 
-    // ... (fungsi update dan hapus snack)
+    public function update_snack($id)
+    {
+        $data = [
+            'nama' => $this->input->post('nama'),
+            'harga' => $this->input->post('harga')
+        ];
+        $this->update('snack', $data, $id);
+        $this->session->set_flashdata('success', 'Snack berhasil diupdate');
+        redirect('admin/snack');
+    }
 
     // ==================== MANAJEMEN PESANAN ====================
     public function update_status_pesanan($id)
